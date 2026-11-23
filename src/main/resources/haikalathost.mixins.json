@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "minVersion": "0.8.7",
+  "mixinextras": { "minVersion": "0.5.0" },
+  "package": "com.haikalat.host.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "client.AutoStorageIndexBufferAccessor",
+    "client.AutoStorageIndexBufferMixin",
+    "client.CloudRendererMixin",
+    "client.CompiledSectionMixin",
+    "client.CubicSamplerMixin",
+    "client.GlStateManagerMixin",
+    "client.HaikalatGpuTimerMixin",
+    "client.LevelRendererMixin",
+    "client.MainTargetMixin",
+    "client.MeshDataMixin",
+    "client.MinecraftMixin",
+    "client.PostChainMixin",
+    "client.PostPassAccessor",
+    "client.RenderGraphMixin",
+    "client.RenderSectionMixin",
+    "client.RenderTargetMixin",
+    "client.SectionCompilerMixin",
+    "client.ShaderInstanceMixin",
+    "client.ShaderProgramInvoker",
+    "client.VertexBufferMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

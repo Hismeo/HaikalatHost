@@ -1,0 +1,13 @@
+scene,round,order,renderer,meshes,quads,frames,submit_ms_per_frame,completed_ms_per_frame
+terrain,1,1,vanilla,512,8192,200,0.157884,0.159149
+terrain,1,2,host,512,8192,200,0.170740,0.171658
+terrain,1,3,multi-draw,512,8192,200,0.043063,0.055587
+terrain,2,1,host,512,8192,200,0.157750,0.158550
+terrain,2,2,multi-draw,512,8192,200,0.029031,0.040563
+terrain,2,3,vanilla,512,8192,200,0.187500,0.188487
+terrain,3,1,multi-draw,512,8192,200,0.054341,0.068231
+terrain,3,2,vanilla,512,8192,200,0.166479,0.168095
+terrain,3,3,host,512,8192,200,0.180822,0.181600
+terrain,4,1,vanilla,512,8192,200,0.145193,0.145970
+terrain,4,2,host,512,8192,200,0.156565,0.157372
+terrain,4,3,multi-draw,512,8192,200,0.020033,0.037614

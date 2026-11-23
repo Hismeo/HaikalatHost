@@ -1,0 +1,15 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal {
+            content { excludeGroupByRegex 'net\\.neoforged(\\..*)?' }
+        }
+        maven {
+            name = 'NeoForgeMirror'
+            url = uri('https://maven.creeperhost.net')
+            content { includeGroupByRegex 'net\\.neoforged(\\..*)?' }
+        }
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'HaikalatHost'

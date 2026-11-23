@@ -1,0 +1,5 @@
+"run","scene","host_sha256","vertex_budget_mib","stats_windows","sections","fallback_sections","fallback_sections_pct","batches","batches_with_fallback","affected_batches_pct","full_fallback_batches","vertex_capacity","vertex_fragmentation"
+"paired-after","fixed","bcbb185eadc6b72d22db9e1d215a6680a44669fe035bab458d88c682327e51b3","256","16","31377062","0","0.0","25792","0","0.0","0","0","0"
+"paired-after","turn","bcbb185eadc6b72d22db9e1d215a6680a44669fe035bab458d88c682327e51b3","256","16","24673530","1102547","4.469","22932","7966","34.737","0","0","1102547"
+"paired-after-repeat","fixed","0628202f69e3e5371f71662837cbede17e9a6d78cf8212a7c9df3cfdbe492736","256","16","37535640","0","0.0","30704","0","0.0","0","0","0"
+"paired-after-repeat","turn","0628202f69e3e5371f71662837cbede17e9a6d78cf8212a7c9df3cfdbe492736","256","16","29463585","1185359","4.023","27652","8072","29.191","0","0","1185359"

@@ -1,0 +1,92 @@
+{
+  "session": "readme-three-way-20261123-201356",
+  "date": "2026-11-23",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.215",
+  "haikalat": "0.28.2",
+  "host": "1.0-alpha",
+  "sodium": "0.6.13",
+  "os": "Windows",
+  "cpu": "Intel Core i7-12650H",
+  "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+  "vram_mib": 4096,
+  "driver": "576.88",
+  "power": "AC",
+  "java": "21.0.13.1+2-LTS",
+  "opengl": "4.6.0 NVIDIA 576.88",
+  "framebuffer": "1280x720",
+  "graphics": "FANCY",
+  "clouds": "FANCY",
+  "render_distance": 32,
+  "simulation_distance": 32,
+  "vsync": false,
+  "fps_cap": false,
+  "profiler": false,
+  "warmup_seconds": 20,
+  "seconds_per_scene": 17,
+  "repeats_per_renderer": 1,
+  "camera_yaw_pitch_degrees": [
+    80.85,
+    38.25
+  ],
+  "turn_degrees": 360,
+  "submit_window": "Post-swap intervals. Discard intervals crossing phase boundaries or the end of sampling.",
+  "fps": "sample count divided by elapsed seconds of the retained intervals",
+  "percentile": "Linear interpolation on the sorted frame intervals using index p * (n - 1).",
+  "host_sha256": "c809a1fd922886d79c62f75458ca994fd1abb8abd1331c4c820343a32ed54ca3",
+  "sodium_sha512": "ce58f34d05d96c0a109a5cea23c741f6bdb2e6be31fc087c5989274cefca5f10ba0c08c62083cf554a51f2c7667bf46e4164383f675c844e77633aef2659996b",
+  "probe_sha256": "663824e566035a052e122053859eab10d14a345690260c2e61b98b3c63e85079",
+  "world_level_sha256": "d67ccb20c8b7f39751a81f1bb56fd82bda0fae1e1f0220a2a678a7a17a55a654",
+  "run_order": [
+    "01-vanilla",
+    "02-sodium",
+    "03-host"
+  ],
+  "runs": [
+    {
+      "renderer": "vanilla",
+      "loaded_mods": [
+        "framebenchmark@1.0.0",
+        "minecraft@1.21.1",
+        "neoforge@21.1.215"
+      ],
+      "focused_checkpoints": 34,
+      "checkpoints": 34,
+      "loaded_chunks": 3653,
+      "frames": 916,
+      "render_thread_cpu_ms_per_frame": 34.44
+    },
+    {
+      "renderer": "sodium",
+      "loaded_mods": [
+        "fabric_api_base@0.4.42+d1308ded19",
+        "fabric_block_view_api_v2@1.0.10+9afaaf8c19",
+        "fabric_renderer_api_v1@3.4.0+9c40919e19",
+        "fabric_rendering_data_attachment_v1@0.3.48+73761d2e19",
+        "framebenchmark@1.0.0",
+        "minecraft@1.21.1",
+        "neoforge@21.1.215",
+        "sodium@0.6.13+mc1.21.1"
+      ],
+      "focused_checkpoints": 34,
+      "checkpoints": 34,
+      "loaded_chunks": 3653,
+      "frames": 11669,
+      "render_thread_cpu_ms_per_frame": 2.765
+    },
+    {
+      "renderer": "host",
+      "loaded_mods": [
+        "framebenchmark@1.0.0",
+        "haikalathost@1.0-alpha",
+        "minecraft@1.21.1",
+        "neoforge@21.1.215"
+      ],
+      "focused_checkpoints": 34,
+      "checkpoints": 34,
+      "loaded_chunks": 3653,
+      "frames": 13682,
+      "render_thread_cpu_ms_per_frame": 2.168
+    }
+  ]
+}

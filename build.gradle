@@ -1,0 +1,137 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+group = mod_group_id
+version = mod_version
+base.archivesName = mod_id
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+tasks.named('jar', Jar) {
+    archiveClassifier.set("mc${minecraft_version}-neoforge")
+}
+
+repositories {
+    exclusiveContent {
+        forRepository { mavenLocal() }
+        filter { includeModule 'com.kaleblangley', 'haikalat' }
+    }
+    // Resolve Maven Central artifacts before ModDevGradle's unfiltered NeoForge repository.
+    def centralRepository = mavenCentral()
+    remove(centralRepository)
+    add(0, centralRepository)
+    maven {
+        name = 'NeoForgeMirror'
+        url = uri('https://maven.creeperhost.net')
+        content {
+            includeGroupByRegex 'net\\.neoforged(\\..*)?'
+            includeGroup 'org.parchmentmc.data'
+        }
+    }
+}
+
+neoForge {
+    version = neo_version
+
+    parchment {
+        minecraftVersion = minecraft_version
+        mappingsVersion = parchment_mappings_version
+    }
+
+    runs {
+        client {
+            client()
+            gameDirectory = file('run/client')
+        }
+        server {
+            server()
+            gameDirectory = file('run/server')
+            programArgument '--nogui'
+        }
+        data {
+            data()
+            gameDirectory = file('run/data')
+            programArguments.addAll '--mod', mod_id, '--all',
+                    '--output', file('src/generated/resources').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+def haikalat = 'com.kaleblangley:haikalat:0.28.2'
+configurations {
+    haikalatEngine {
+        canBeConsumed = false
+        transitive = false
+    }
+}
+
+dependencies {
+    // NeoForge 21.1.215 supplies this library at runtime.
+    compileOnly('io.github.llamalad7:mixinextras-neoforge:0.5.0') { transitive = false }
+    compileOnly(haikalat) { transitive = false }
+    haikalatEngine haikalat
+}
+
+// Put the engine in the same transforming classloader as the mod so the
+// embedded frame's query-ownership adapter applies in development and in the JAR.
+tasks.named('processResources', ProcessResources) {
+    from(zipTree(configurations.haikalatEngine.singleFile)) {
+        exclude 'META-INF/MANIFEST.MF', 'META-INF/*.SF', 'META-INF/*.RSA', 'META-INF/*.DSA'
+    }
+}
+
+// The benchmark uses the prepared Minecraft classes directly in a standalone JVM.
+sourceSets {
+    renderBenchmark {
+        java.srcDirs = ['test/java']
+        compileClasspath += sourceSets.main.output.classesDirs
+        runtimeClasspath += sourceSets.main.output.classesDirs
+    }
+}
+neoForge.addModdingDependenciesTo(sourceSets.renderBenchmark)
+dependencies {
+    renderBenchmarkImplementation(haikalat) { transitive = false }
+}
+
+tasks.register('renderBenchmark', JavaExec) {
+    group = 'verification'
+    description = 'Compare Minecraft and HaikalatHost render submissions with baked meshes in one GL context.'
+    javaLauncher = javaToolchains.launcherFor(java.toolchain)
+    classpath = sourceSets.renderBenchmark.runtimeClasspath
+    mainClass = 'com.haikalat.host.client.RenderBenchmark'
+    systemProperty 'haikalathost.terrainFaceCulling', 'true'
+    systemProperty 'renderBenchmark.report', layout.buildDirectory.file('reports/render-benchmark/rounds.csv').get().asFile.absolutePath
+}
+
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+    var propertiesToExpand = [
+            minecraft_version   : minecraft_version,
+            neo_version         : neo_version,
+            loader_version_range: loader_version_range,
+            mod_id              : mod_id,
+            mod_name            : mod_name,
+            mod_version         : mod_version,
+            mod_license         : mod_license,
+    ]
+    inputs.properties propertiesToExpand
+    expand propertiesToExpand
+    from 'src/main/templates'
+    into layout.buildDirectory.dir('generated/resources/modMetadata')
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
